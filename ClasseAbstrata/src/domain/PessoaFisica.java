@@ -9,4 +9,11 @@ public class PessoaFisica extends Pessoa {
 
         return validaCPF;
     }
+
+    @Override
+    protected boolean isNomeSujo() {
+        boolean validaCPFSujo = true;
+
+        return validaCPFSujo;
+    }
 }

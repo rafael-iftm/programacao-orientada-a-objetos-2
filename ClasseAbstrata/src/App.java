@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.List;
+
 import domain.Pessoa;
 import domain.PessoaEstrangeira;
 import domain.PessoaFisica;
@@ -8,13 +11,18 @@ public class App {
         Pessoa rafael = new PessoaFisica();
         Pessoa iftm = new PessoaJuridica();
         Pessoa lewisHamilton = new PessoaEstrangeira();
-        
-        chamaValidacao(rafael);
-        chamaValidacao(iftm);
-        chamaValidacao(lewisHamilton);
+
+        List<Pessoa> pessoas = Arrays.asList(rafael,iftm,lewisHamilton);
+
+        for (Pessoa pessoa: pessoas) {
+            chamaValidacao(pessoa);
+        }
     }
 
     private static void chamaValidacao(Pessoa pessoa) {
+        if (pessoa instanceof PessoaEstrangeira) {
+            return;
+        }
         pessoa.valida();
     }
 }

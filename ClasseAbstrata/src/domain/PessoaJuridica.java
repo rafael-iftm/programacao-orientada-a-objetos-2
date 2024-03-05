@@ -9,4 +9,11 @@ public class PessoaJuridica extends Pessoa {
 
         return validaCnpj;
     }
+
+    @Override
+    protected boolean isNomeSujo() {
+        boolean validaCnpjSujo = true;
+
+        return validaCnpjSujo;
+    }
 }
