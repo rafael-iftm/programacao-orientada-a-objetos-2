@@ -1,18 +1,62 @@
-## Getting Started
+# Sistema de Precificação de Produtos
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Este projeto em Java é um sistema simples para cálculo de preços de produtos, levando em consideração diferentes tipos de clientes e aplicando descontos, impostos e taxas adicionais.
 
-## Folder Structure
+## Estrutura do Projeto
 
-The workspace contains two folders by default, where:
+- **Cliente**: Classe abstrata que representa um cliente genérico. Contém o método abstrato `aplicarDesconto` que deve ser implementado por subclasses.
+- **ClienteFisico**: Subclasse de `Cliente`, representa um cliente do tipo Pessoa Física e implementa um desconto específico.
+- **ClienteJuridico**: Subclasse de `Cliente`, representa um cliente do tipo Pessoa Jurídica e implementa um desconto específico.
+- **Produto**: Classe que representa um produto, contendo métodos para aplicar impostos, taxas adicionais e calcular o preço final considerando o tipo de cliente.
+- **App**: Classe principal que executa o programa e demonstra o cálculo de preços para diferentes tipos de clientes.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Requisitos
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+- **Java 8+**: Certifique-se de ter o Java Development Kit (JDK) instalado em sua máquina.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## Como Compilar e Executar
 
-## Dependency Management
+### 1. Clonar o Repositório
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Primeiro, clone o repositório para sua máquina local usando o seguinte comando:
+
+```bash
+git clone https://github.com/rafael-iftm/programacao-orientada-a-objetos-2.git
+```
+
+### 2. Navegar até o Diretório do Projeto
+
+```bash
+cd programacao-orientada-a-objetos-2/ExercicioEncapsulamento
+```
+
+### 3. Compilar o Código
+
+Dentro do diretório src, compile o código Java usando o seguinte comando:
+
+```bash
+javac -d ../bin src/*.java
+```
+
+Este comando compilará todos os arquivos .java dentro do diretório src e colocará os arquivos .class compilados no diretório bin.
+
+### 4. Executar o Programa
+
+Após a compilação, execute o programa a partir do diretório bin:
+
+```bash
+java -cp bin App
+```
+
+### 5. Verificar a Saída
+
+O programa imprimirá os preços finais calculados para diferentes tipos de clientes no console:
+
+```bash
+Preço final para Rafael: 3020.0
+Preço final para Empresa do Rafael: 2690.0
+```
+
+## Explicação das Mudanças
+
+Neste projeto, a lógica de precificação foi distribuída de forma mais coesa e encapsulada, removendo a classe Precificacao e delegando responsabilidades específicas para as classes Produto e Cliente. A classe Produto agora contém métodos para calcular o preço final, enquanto os diferentes tipos de Cliente aplicam seus próprios descontos.
