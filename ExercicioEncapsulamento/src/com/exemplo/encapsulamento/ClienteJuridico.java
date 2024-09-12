@@ -1,3 +1,5 @@
+package com.exemplo.encapsulamento;
+
 public class ClienteJuridico extends Cliente {
 
     public ClienteJuridico(String nome) {

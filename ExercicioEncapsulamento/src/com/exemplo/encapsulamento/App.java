@@ -1,3 +1,5 @@
+package com.exemplo.encapsulamento;
+
 public class App {
     public static void main(String[] args) {
         Produto produto = new Produto("Notebook", 3000.00);
