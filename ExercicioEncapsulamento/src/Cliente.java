@@ -1,3 +1,5 @@
+package com.exemplo.encapsulamento;
+
 public abstract class Cliente {
     private String nome;
 
