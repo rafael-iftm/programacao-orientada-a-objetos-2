@@ -1,7 +1,7 @@
 public abstract class Cliente {
     private String nome;
 
-    public Cliente(String nome) {
+    protected Cliente(String nome) {
         this.nome = nome;
     }
 
