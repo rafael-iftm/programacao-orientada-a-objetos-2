@@ -1,7 +1,6 @@
 package domain;
 
 public class PessoaEstrangeira extends Pessoa {
-    private String passaporte;
 
     @Override
     public boolean valida() {
@@ -9,8 +8,4 @@ public class PessoaEstrangeira extends Pessoa {
         return true;
         // Implementa isso depois
     }
-
-    // public boolean testarNacionalidade() {
-    //     // Quebra o polimorfismo
-    // }
 }

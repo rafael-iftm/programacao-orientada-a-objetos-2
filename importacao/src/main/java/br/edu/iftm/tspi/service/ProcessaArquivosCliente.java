@@ -9,9 +9,9 @@ import java.util.List;
 
 public class ProcessaArquivosCliente {
 
-    private final String PATH = "importacao\\arquivos\\";
-    private final String PROCESSADOS = "importacao\\processados\\";
-    private final String CLIENTE_PREFIX = "Cliente_*";
+    private final String path = "importacao\\arquivos\\";
+    private final String processados = "importacao\\processados\\";
+    private final String clientePrefix = "Cliente_*";
 
     public void processaCliente() throws Exception {
         List<Path> clientesAProcessar = getClientesAProcessar(); 
@@ -22,10 +22,10 @@ public class ProcessaArquivosCliente {
     }
 
     private List<Path> getClientesAProcessar() throws Exception {
-        Path dir = Paths.get(PATH);
+        Path dir = Paths.get(path);
 
         List<Path> fileList = new ArrayList<>();
-        Files.newDirectoryStream(dir, CLIENTE_PREFIX).forEach(fileList::add);
+        Files.newDirectoryStream(dir, clientePrefix).forEach(fileList::add);
         Collections.sort(fileList);
 
         return fileList;
@@ -38,8 +38,7 @@ public class ProcessaArquivosCliente {
     }
 
     private void moveArquivoProcessado(Path clienteAProcessar) throws Exception {
-        Path dir = Paths.get(PROCESSADOS+clienteAProcessar.getFileName());
-        Files.move(clienteAProcessar,dir);
+        Path dir = Paths.get(processados + clienteAProcessar.getFileName());
+        Files.move(clienteAProcessar, dir);
     }
-
 }
