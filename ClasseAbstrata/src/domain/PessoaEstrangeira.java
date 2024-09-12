@@ -5,14 +5,11 @@ public class PessoaEstrangeira extends Pessoa {
 
     @Override
     protected boolean validaAbstract() {
-        boolean validaPassaporte = true;
-
-        return validaPassaporte;
+        return true;
     }
 
     @Override
     protected boolean isNomeSujo() {
         throw new UnsupportedOperationException("Pessoa estrangeira não tem nome sujo");
     }
-
 }
