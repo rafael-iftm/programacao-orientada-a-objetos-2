@@ -8,64 +8,49 @@ import java.util.List;
 import br.edu.iftm.tspi.dao.ClienteDao;
 import br.edu.iftm.tspi.domain.Cliente;
 
-public class ProcessaLinhasCliente {
-
-    private List<String> lines;
+public class ProcessaLinhasCliente extends ProcessadorLinha<Cliente> {
 
     private ClienteDao clienteDao;
 
-    private Integer lote;
-
     public ProcessaLinhasCliente(List<String> lines) {
-        this.lines = lines;
-        clienteDao = new ClienteDao();
+        super(lines);
+        this.clienteDao = new ClienteDao();
     }
 
-    public void processa() throws Exception {
-        for (String linha: lines) {
-            String opcao = linha.substring(0, 1);
-            if (opcao.equals("2")) {
-                processaDetalhe(linha);
-            } else if (opcao.equals("1")) {
-                processaCabecalho(linha);
-            } else {
-                throw new Exception("Desconheço essa opção de processar a linha: "+opcao);
-            }
-        }
-        clienteDao.salvarLote(lote);
-    }
-
-    private void processaCabecalho(String linha) throws Exception {
-        Integer lote = Integer.parseInt(linha.substring( 1, 4));
+    @Override
+    protected void processaCabecalho(String linha) throws Exception {
+        Integer lote = Integer.parseInt(linha.substring(1, 4));
         Integer loteBanco = clienteDao.getUltimoLote();
         Integer loteEsperado = loteBanco + 1;
         if (!lote.equals(loteEsperado)) {
-            throw new Exception("Lote recebido: "+lote+ 
-                                "diferente do lote esperado:"+loteEsperado);
+            throw new Exception("Lote recebido: " + lote + " diferente do lote esperado:" + loteEsperado);
         }
         this.lote = lote;
     }
 
-    private void processaDetalhe(String linha) throws Exception {
+    @Override
+    protected void processaDetalhe(String linha) throws Exception {
         Cliente cliente = getCliente(linha);
         clienteDao.persistir(cliente);
     }
 
+    @Override
+    protected void salvarLote() throws Exception {
+        clienteDao.salvarLote(lote);
+    }
+
     private Cliente getCliente(String linha) throws ParseException {
         Cliente cliente = new Cliente();
-        cliente.setInclusaoAlteracao(linha.substring(1,2));
-        cliente.setCpf(linha.substring(2,13));
-        cliente.setNome(linha.substring(13,43));
-        cliente.setEndereco(linha.substring(43,73));
-        cliente.setBairro(linha.substring(73,103));
-        cliente.setCidade(linha.substring(103,133));
+        cliente.setInclusaoAlteracao(linha.substring(1, 2));
+        cliente.setCpf(linha.substring(2, 13));
+        cliente.setNome(linha.substring(13, 43));
+        cliente.setEndereco(linha.substring(43, 73));
+        cliente.setBairro(linha.substring(73, 103));
+        cliente.setCidade(linha.substring(103, 133));
         cliente.setEstado(linha.substring(133, 135));
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyyhhmmss");
-        String dataCadastro = linha.substring(135, 143);
-        String horaCadastro = linha.substring(143, 149);
-        Date dataHoraCadastro = sdf.parse(dataCadastro+horaCadastro);
+        Date dataHoraCadastro = sdf.parse(linha.substring(135, 143) + linha.substring(143, 149));
         cliente.setDataHoraCadastro(dataHoraCadastro);
         return cliente;
     }
-
 }
